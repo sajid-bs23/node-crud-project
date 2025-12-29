@@ -1,6 +1,7 @@
 # Node.js CRUD Project
 
-A simple RESTful CRUD (Create, Read, Update, Delete) application built with Node.js and Express. This project provides a complete Book management API with comprehensive test coverage.
+A simple RESTful CRUD (Create, Read, Update, Delete) application built with Node.js and Express. This project provides a
+complete Book management API with comprehensive test coverage.
 
 ## Table of Contents
 
@@ -12,6 +13,8 @@ A simple RESTful CRUD (Create, Read, Update, Delete) application built with Node
 - [Running Tests](#running-tests)
 - [Code Coverage](#code-coverage)
 - [Build and Run](#build-and-run)
+    - [Docker Commands](#docker-commands)
+    - [Makefile Commands](#makefile-commands)
 - [Configuration](#configuration)
 - [Technologies Used](#technologies-used)
 - [Example API Usage](#example-api-usage)
@@ -71,7 +74,15 @@ node-crud-project/
 └── README.md                  # This file
 ```
 
-## Getting Started
+### Quick Start with Docker
+
+```bash
+docker-compose up --build
+```
+
+The application will be available at `http://localhost:3000`.
+
+### Local Development Setup
 
 ### 1. Clone the Repository
 
@@ -83,11 +94,13 @@ cd node-crud-project
 ### 2. Build the Project
 
 Using Makefile:
+
 ```bash
 make build
 ```
 
 Or using npm directly:
+
 ```bash
 npm install
 ```
@@ -95,11 +108,13 @@ npm install
 ### 3. Run the Application
 
 Using Makefile:
+
 ```bash
 make run
 ```
 
 Or using npm directly:
+
 ```bash
 npm start
 ```
@@ -115,6 +130,7 @@ All endpoints are prefixed with `/api/books`
 **GET** `/api/books`
 
 **Response:**
+
 ```json
 {
   "books": [
@@ -137,6 +153,7 @@ All endpoints are prefixed with `/api/books`
 **GET** `/api/books/{id}`
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 1,
@@ -151,6 +168,7 @@ All endpoints are prefixed with `/api/books`
 ```
 
 **Response (404 Not Found):**
+
 ```json
 {
   "error": "Book not found"
@@ -162,6 +180,7 @@ All endpoints are prefixed with `/api/books`
 **POST** `/api/books`
 
 **Request Body:**
+
 ```json
 {
   "title": "1984",
@@ -173,6 +192,7 @@ All endpoints are prefixed with `/api/books`
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "id": 2,
@@ -187,6 +207,7 @@ All endpoints are prefixed with `/api/books`
 ```
 
 **Response (400 Bad Request):**
+
 ```json
 {
   "error": "Book with ISBN 9780451524935 already exists"
@@ -198,6 +219,7 @@ All endpoints are prefixed with `/api/books`
 **PUT** `/api/books/{id}`
 
 **Request Body:**
+
 ```json
 {
   "title": "1984 (Updated)",
@@ -209,6 +231,7 @@ All endpoints are prefixed with `/api/books`
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 2,
@@ -223,6 +246,7 @@ All endpoints are prefixed with `/api/books`
 ```
 
 **Response (404 Not Found):**
+
 ```json
 {
   "error": "Book not found"
@@ -234,6 +258,7 @@ All endpoints are prefixed with `/api/books`
 **DELETE** `/api/books/{id}`
 
 **Response (204 No Content):**
+
 ```json
 {
   "message": "Book deleted successfully"
@@ -245,11 +270,13 @@ All endpoints are prefixed with `/api/books`
 ### Run All Tests
 
 Using Makefile:
+
 ```bash
 make test
 ```
 
 Or using npm directly:
+
 ```bash
 npm test
 ```
@@ -271,16 +298,19 @@ npm test -- Book.test.js
 ### Generate Coverage Report
 
 Using Makefile:
+
 ```bash
 make coverage
 ```
 
 Or using npm directly:
+
 ```bash
 npm run coverage
 ```
 
 This will generate:
+
 - **LCOV Report** (SonarQube format): `coverage/lcov.info`
 - **JSON Summary**: `coverage/coverage-summary.json`
 - **HTML Report**: `coverage/index.html`
@@ -288,6 +318,7 @@ This will generate:
 ### View Coverage Report
 
 Open the HTML report in your browser:
+
 ```bash
 # On Linux/Mac
 open coverage/index.html
@@ -299,12 +330,24 @@ start coverage/index.html
 ```
 
 The coverage report includes:
+
 - Line coverage
 - Branch coverage
 - Function coverage
 - Statement coverage
 
-## Build and Run
+### Docker Commands
+
+```bash
+# Build and start
+docker-compose up --build
+
+# Start in background
+docker-compose up -d
+
+# Stop containers
+docker-compose down
+```
 
 ### Available Makefile Commands
 
@@ -341,6 +384,7 @@ npm run test:watch
 ### Server Configuration
 
 The server configuration is in `src/server.js`:
+
 - **Port**: Defaults to `3000`, can be set via `PORT` environment variable
 - **Host**: Listens on all interfaces (`0.0.0.0`)
 
@@ -359,13 +403,14 @@ Currently, the project uses in-memory storage. To add database support:
 3. Add database connection configuration
 
 Example with PostgreSQL:
+
 ```javascript
-const { Pool } = require('pg');
+const {Pool} = require('pg');
 const pool = new Pool({
-  host: 'localhost',
-  database: 'books_db',
-  user: 'user',
-  password: 'password'
+    host: 'localhost',
+    database: 'books_db',
+    user: 'user',
+    password: 'password'
 });
 ```
 
@@ -423,44 +468,44 @@ const BASE_URL = 'http://localhost:3000/api/books';
 
 // Create a book
 async function createBook() {
-  const response = await axios.post(BASE_URL, {
-    title: 'The Catcher in the Rye',
-    author: 'J.D. Salinger',
-    isbn: '9780316769488',
-    publishedDate: '1951-07-16',
-    pages: 234
-  });
-  console.log(response.data);
+    const response = await axios.post(BASE_URL, {
+        title: 'The Catcher in the Rye',
+        author: 'J.D. Salinger',
+        isbn: '9780316769488',
+        publishedDate: '1951-07-16',
+        pages: 234
+    });
+    console.log(response.data);
 }
 
 // Get all books
 async function getAllBooks() {
-  const response = await axios.get(BASE_URL);
-  console.log(response.data);
+    const response = await axios.get(BASE_URL);
+    console.log(response.data);
 }
 
 // Get book by ID
 async function getBookById(id) {
-  const response = await axios.get(`${BASE_URL}/${id}`);
-  console.log(response.data);
+    const response = await axios.get(`${BASE_URL}/${id}`);
+    console.log(response.data);
 }
 
 // Update a book
 async function updateBook(id) {
-  const response = await axios.put(`${BASE_URL}/${id}`, {
-    title: 'The Catcher in the Rye (Updated)',
-    author: 'J.D. Salinger',
-    isbn: '9780316769488',
-    publishedDate: '1951-07-16',
-    pages: 250
-  });
-  console.log(response.data);
+    const response = await axios.put(`${BASE_URL}/${id}`, {
+        title: 'The Catcher in the Rye (Updated)',
+        author: 'J.D. Salinger',
+        isbn: '9780316769488',
+        publishedDate: '1951-07-16',
+        pages: 250
+    });
+    console.log(response.data);
 }
 
 // Delete a book
 async function deleteBook(id) {
-  const response = await axios.delete(`${BASE_URL}/${id}`);
-  console.log(response.status);
+    const response = await axios.delete(`${BASE_URL}/${id}`);
+    console.log(response.status);
 }
 ```
 

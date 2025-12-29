@@ -34,3 +34,8 @@ Thumbs.db
 dist/
 build/
 
+# Docker
+.dockerignore
+docker-compose.yml
+Dockerfile
+
